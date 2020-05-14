@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RAPO Markdown Editor </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div>
+	<div id="editor">
+    <textarea class="text-input" placeholder="Type Markdown here"></textarea>
+	</div>
+	<div id="preview" ></div>
+  </div>
+<script>
+const textInput = document.querySelector('.text-input');
+const preview = document.querySelector('#preview');
+
+function parseText(text) {
+	const outhtml = text
+		.replace(/###(.*)[\r\n]/g, "<h3>$1</h3>")	
+		.replace(/##(.*)[\r\n]/g, "<h2>$1</h2>")	
+		.replace(/#(.*)[\r\n]/g, "<h1>$1</h1>")	
+		.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")	
+		.replace(/\*(.*?)\*/g, "<em>$1</em>")	
+	preview.innerHTML = outhtml;
+	
+}
+
+function displayHTML(e) {
+	const key=e.keyCode || e.which;
+  	if (key==13){
+		parseText(textInput.value);
+	}
+}
+
+textInput.addEventListener('keyup', displayHTML);
+
+</script>
+  </body>
+</html>
